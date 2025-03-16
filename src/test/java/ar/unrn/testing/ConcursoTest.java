@@ -39,7 +39,7 @@ public class ConcursoTest {
     public void inscribirParticipanteFueraDeFecha() {
         // Set up
         var miConcurso = new Concurso("bingo", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 9));
-        var participante = new Participante(2, "emilio");
+        var participante = new Participante(2, "mariano");
 
         // Excercise
         assertThrows(RuntimeException.class, () -> {
