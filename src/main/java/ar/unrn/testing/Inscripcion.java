@@ -2,7 +2,7 @@ package ar.unrn.testing;
 
 import java.time.LocalDate;
 
-public class Inscripcion {
+class Inscripcion {
     private Participante participante;
     private Concurso concurso;
     private LocalDate fecha;
@@ -13,11 +13,7 @@ public class Inscripcion {
         this.fecha = fecha;
     }
 
-    public LocalDate obtenerFecha() {
-        return this.fecha;
-    }
-
-    public Participante obtenerParticipante() {
-        return this.participante;
+    public boolean perteneceA(Participante participante) {
+        return this.participante.equals(participante);
     }
 }

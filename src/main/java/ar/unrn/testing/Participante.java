@@ -1,5 +1,7 @@
 package ar.unrn.testing;
 
+import java.util.Objects;
+
 public class Participante {
     private int id;
     private String nombre;
@@ -15,14 +17,19 @@ public class Participante {
         this.puntos = this.puntos + puntos;
     }
 
-    public int obtenerId() {
-        return this.id;
+    public int obtenerPuntos() {
+        return this.puntos;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Participante that = (Participante) o;
+        return id == that.id;
+    }
 
     @Override
-    public boolean equals(Object obj) {
-        Participante participante = (Participante) obj;
-        return this.id == participante.obtenerId();
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
