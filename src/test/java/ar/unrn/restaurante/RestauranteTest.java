@@ -12,9 +12,9 @@ public class RestauranteTest {
     public void pagoConTarjetaVisa() {
         // set up
         Tarjeta tarjeta = new TarjetaVisa();
-        Bebida bebida1 = new Bebida("coca-cola", 5000);
-        Bebida bebida2 = new Bebida("fernet", 5000);
-        Comida comida1 = new Comida("pizza", 8000);
+        Bebida bebida1 = new Bebida("coca-cola", 5000f);
+        Bebida bebida2 = new Bebida("fernet", 5000f);
+        Comida comida1 = new Comida("pizza", 8000f);
 
         Map<Bebida, Integer> bebidas = new HashMap<>();
         Map<Comida, Integer> comidas = new HashMap<>();
@@ -29,16 +29,16 @@ public class RestauranteTest {
         float total = dispositivo.calcularCostoTotal();
 
         // verify
-        assertEquals(18054, total);
+        assertEquals(18054f, total);
     }
 
     @Test
     public void pagoConTarjetaMastercard() {
         // set up
         Tarjeta tarjeta = new TarjetaMastercard();
-        Bebida bebida1 = new Bebida("coca-cola", 5000);
-        Bebida bebida2 = new Bebida("fernet", 5000);
-        Comida comida1 = new Comida("pizza", 10000);
+        Bebida bebida1 = new Bebida("coca-cola", 5000f);
+        Bebida bebida2 = new Bebida("fernet", 5000f);
+        Comida comida1 = new Comida("pizza", 10000f);
 
         Map<Bebida, Integer> bebidas = new HashMap<>();
         Map<Comida, Integer> comidas = new HashMap<>();
@@ -53,16 +53,16 @@ public class RestauranteTest {
         float total = dispositivo.calcularCostoTotal();
 
         // verify
-        assertEquals(20196, total);
+        assertEquals(20196f, total);
     }
 
     @Test
     public void pagoConTarjetaComarcaPlus() {
         // set up
         Tarjeta tarjeta = new TarjetaComarcaPlus();
-        Bebida bebida1 = new Bebida("coca-cola", 5000);
-        Bebida bebida2 = new Bebida("fernet", 5000);
-        Comida comida1 = new Comida("pizza", 10000);
+        Bebida bebida1 = new Bebida("coca-cola", 5000f);
+        Bebida bebida2 = new Bebida("fernet", 5000f);
+        Comida comida1 = new Comida("pizza", 10000f);
 
         Map<Bebida, Integer> bebidas = new HashMap<>();
         Map<Comida, Integer> comidas = new HashMap<>();
@@ -77,16 +77,16 @@ public class RestauranteTest {
         float total = dispositivo.calcularCostoTotal();
 
         // verify
-        assertEquals(19992, total);
+        assertEquals(19992f, total);
     }
 
     @Test
     public void pagoConTarjetaViedma() {
         // set up
         Tarjeta tarjeta = new TarjetaViedma();
-        Bebida bebida1 = new Bebida("coca-cola", 5000);
-        Bebida bebida2 = new Bebida("fernet", 5000);
-        Comida comida1 = new Comida("pizza", 10000);
+        Bebida bebida1 = new Bebida("coca-cola", 4000f);
+        Bebida bebida2 = new Bebida("fernet", 8000f);
+        Comida comida1 = new Comida("pizza", 7500f);
 
         Map<Bebida, Integer> bebidas = new HashMap<>();
         Map<Comida, Integer> comidas = new HashMap<>();
@@ -101,6 +101,6 @@ public class RestauranteTest {
         float total = dispositivo.calcularCostoTotal();
 
         // verify
-        assertEquals(20400, total);
+        assertEquals(19890f, total);
     }
 }

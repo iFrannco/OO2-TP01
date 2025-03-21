@@ -17,8 +17,8 @@ public class Dispositivo {
     }
 
     public float calcularCostoTotal() {
-        float totalBebidas = 0;
-        float totalComidas = 0;
+        float totalBebidas = 0f;
+        float totalComidas = 0f;
 
         // No le pregunto el tipo que es y en base a eso tomo una accion u otra
         // sino que simplemente a todas las bebidas y comidas, les sumo su valor.
