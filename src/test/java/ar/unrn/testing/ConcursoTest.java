@@ -2,15 +2,17 @@ package ar.unrn.testing;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConcursoTest {
     @Test
-    public void inscribirParticipanteEnFechaIntermedia() {
+    public void inscribirParticipanteEnFechaIntermedia() throws IOException {
         // Set up
-        var miConcurso = new Concurso("rifa", LocalDate.of(2025, 1, 1), LocalDate.of(2025, 12, 1));
+        var registrador = new RegistradorFake();
+        var miConcurso = new Concurso(1, "rifa", LocalDate.of(2025, 1, 1), LocalDate.of(2025, 12, 1), registrador);
         var participante = new Participante(1, "lucas");
 
         // Excercise
@@ -19,12 +21,14 @@ public class ConcursoTest {
         // Verify
         assertTrue(miConcurso.existeParticipante(participante));
         assertEquals(1, miConcurso.cantidadDeParticipantes());
+        assertEquals("21/03/2025, 1, 1", registrador.getDatos());
     }
 
     @Test
-    public void inscribirParticipanteEnElPrimerDia() {
+    public void inscribirParticipanteEnElPrimerDia() throws IOException {
         // Set up
-        var miConcurso = new Concurso("otra rifa", LocalDate.now(), LocalDate.of(2025, 12, 9));
+        var registrador = new RegistradorFake();
+        var miConcurso = new Concurso(2, "otra rifa", LocalDate.now(), LocalDate.of(2025, 12, 9), registrador);
         var participante = new Participante(2, "matias");
 
         // Excercise
@@ -33,16 +37,18 @@ public class ConcursoTest {
         // Verify
         assertTrue(miConcurso.existeParticipante(participante));
         assertEquals(10, participante.obtenerPuntos());
+        assertEquals("21/03/2025, 2, 2", registrador.getDatos());
     }
 
     @Test
     public void inscribirParticipanteFueraDeFecha() {
         // Set up
-        var miConcurso = new Concurso("bingo", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 9));
+        var registrador = new RegistradorFake();
+        var miConcurso = new Concurso(3, "bingo", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 9), registrador);
         var participante = new Participante(2, "mariano");
 
         // Excercise
-        assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             miConcurso.inscribirParticipante(participante);
         });
 
@@ -50,5 +56,6 @@ public class ConcursoTest {
         assertFalse(miConcurso.existeParticipante(participante));
         assertEquals(0, miConcurso.cantidadDeParticipantes());
         assertFalse(miConcurso.existeParticipante(participante));
+        assertEquals("No se pudo inscribir al participante, fecha fuera de rango", exception.getMessage());
     }
 }

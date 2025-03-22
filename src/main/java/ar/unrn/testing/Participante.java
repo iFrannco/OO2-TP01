@@ -8,6 +8,9 @@ public class Participante {
     private int puntos;
 
     public Participante(int id, String nombre) {
+        if (nombre.equals("")) {
+            throw new RuntimeException("El nombre no puede estar vacio");
+        }
         this.id = id;
         this.nombre = nombre;
         this.puntos = 0;
@@ -19,6 +22,10 @@ public class Participante {
 
     public int obtenerPuntos() {
         return this.puntos;
+    }
+
+    public int obtenerId() {
+        return this.id;
     }
 
     @Override

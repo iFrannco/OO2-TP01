@@ -1,5 +1,7 @@
 package ar.unrn.restaurante;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class Dispositivo {
@@ -7,16 +9,18 @@ public class Dispositivo {
     private Map<Bebida, Integer> bebidas;
     private Tarjeta tarjeta;
     private Propina propina;
+    private Exportador exportador;
 
-    public Dispositivo(Map<Bebida, Integer> bebidas, Map<Comida, Integer> comidas, Tarjeta tarjeta, Propina propina) {
+    public Dispositivo(Map<Bebida, Integer> bebidas, Map<Comida, Integer> comidas, Tarjeta tarjeta, Propina propina, Exportador exportador) {
         // Validar que no esten vacios los maps
         this.bebidas = bebidas;
         this.comidas = comidas;
         this.tarjeta = tarjeta;
         this.propina = propina;
+        this.exportador = exportador;
     }
 
-    public float calcularCostoTotal() {
+    public float calcularCostoTotal() throws IOException {
         float totalBebidas = 0f;
         float totalComidas = 0f;
 
@@ -29,7 +33,9 @@ public class Dispositivo {
             totalComidas += c.getKey().obtenerPrecio() * c.getValue();
         }
         float totalConDescuento = this.tarjeta.aplicarDescuento(totalBebidas, totalComidas);
+        float totalConPropina = (this.propina.porcentaje() * totalConDescuento) + totalConDescuento;
 
-        return (this.propina.porcentaje() * totalConDescuento) + totalConDescuento;
+        this.exportador.exportar(LocalDate.now(), totalConPropina);
+        return totalConPropina;
     }
 }
