@@ -25,14 +25,15 @@ public class RestauranteTest {
         comidas.put(comida1, 1);
 
         var exportador = new ExportadorFake();
-        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador);
+        var proveedorFechas = new ProveedorDeFechasFake();
+        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador, proveedorFechas);
 
         // excecute
         float total = dispositivo.calcularCostoTotal();
 
         // verify
         assertEquals(18054f, total);
-        assertEquals("21/03/2025 || 18054.0", exportador.getDatos());
+        assertEquals("01/01/2025 || 18054.0", exportador.getDatos());
     }
 
     @Test
@@ -51,14 +52,15 @@ public class RestauranteTest {
         comidas.put(comida1, 1);
 
         var exportador = new ExportadorFake();
-        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador);
+        var proveedorFechas = new ProveedorDeFechasFake();
+        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador, proveedorFechas);
 
         // excecute
         float total = dispositivo.calcularCostoTotal();
 
         // verify
         assertEquals(20196f, total);
-        assertEquals("21/03/2025 || 20196.0", exportador.getDatos());
+        assertEquals("01/01/2025 || 20196.0", exportador.getDatos());
     }
 
     @Test
@@ -77,14 +79,15 @@ public class RestauranteTest {
         comidas.put(comida1, 1);
 
         var exportador = new ExportadorFake();
-        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador);
+        var proveedorFechas = new ProveedorDeFechasFake();
+        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador, proveedorFechas);
 
         // excecute
         float total = dispositivo.calcularCostoTotal();
 
         // verify
         assertEquals(19992f, total);
-        assertEquals("21/03/2025 || 19992.0", exportador.getDatos());
+        assertEquals("01/01/2025 || 19992.0", exportador.getDatos());
     }
 
     @Test
@@ -103,13 +106,14 @@ public class RestauranteTest {
         comidas.put(comida1, 1);
 
         var exportador = new ExportadorFake();
-        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador);
+        var proveedorFechas = new ProveedorDeFechasFake();
+        Dispositivo dispositivo = new Dispositivo(bebidas, comidas, tarjeta, Propina.BAJO, exportador, proveedorFechas);
 
         // excecute
         float total = dispositivo.calcularCostoTotal();
 
         // verify
         assertEquals(19890f, total);
-        assertEquals("21/03/2025 || 19890.0", exportador.getDatos());
+        assertEquals("01/01/2025 || 19890.0", exportador.getDatos());
     }
 }

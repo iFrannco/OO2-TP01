@@ -1,5 +1,7 @@
 package ar.unrn.testing;
 
+import ar.unrn.restaurante.ProveedorDeFechas;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,8 +14,9 @@ public class Concurso {
     private LocalDate fechaFin;
     private List<Inscripcion> inscriptos;
     private Registrador registrador;
+    private ProveedorDeFechas proveedorFechas;
 
-    public Concurso(int id, String nombre, LocalDate fechaInicio, LocalDate fechaFin, Registrador registrador) {
+    public Concurso(int id, String nombre, LocalDate fechaInicio, LocalDate fechaFin, Registrador registrador, ProveedorDeFechas proveedorFechas) {
         if (fechaInicio.isAfter(fechaFin)) {
             throw new RuntimeException("La fecha de inicio tiene que ser anterior a la fecha de fin");
         }
@@ -23,6 +26,7 @@ public class Concurso {
         this.fechaFin = fechaFin;
         this.inscriptos = new ArrayList<>();
         this.registrador = registrador;
+        this.proveedorFechas = proveedorFechas;
     }
 
     public void inscribirParticipante(Participante participante) throws IOException {
@@ -35,7 +39,7 @@ public class Concurso {
             }
             inscriptos.add(inscripcion);
 
-            registrador.registrar(fechaDeHoy, this.id, participante.obtenerId());
+            registrador.registrar(this.proveedorFechas.obtenerFecha(), this.id, participante.obtenerId());
 
         } else {
             throw new RuntimeException("No se pudo inscribir al participante, fecha fuera de rango");

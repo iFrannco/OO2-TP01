@@ -26,5 +26,7 @@ public class ExportadorEnBD implements Exportador {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        // Agregar el finally para cerrar la conexion.
     }
 }
