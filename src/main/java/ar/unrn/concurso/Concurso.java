@@ -30,16 +30,16 @@ public class Concurso {
     }
 
     public void inscribirParticipante(Participante participante) throws IOException {
-        var inscripcion = new Inscripcion(participante, this, LocalDate.now());
-
-        LocalDate fechaDeHoy = LocalDate.now();
+        LocalDate fechaDeHoy = this.proveedorFechas.obtenerFecha();
+        var inscripcion = new Inscripcion(participante, this, fechaDeHoy);
+        
         if (fechaDeHoy.isBefore(this.fechaFin.plusDays(1)) && fechaDeHoy.isAfter(this.fechaInicio.plusDays(-1))) {
             if (fechaDeHoy.equals(this.fechaInicio)) {
                 participante.sumarPuntos(10);
             }
             inscriptos.add(inscripcion);
 
-            registrador.registrar(this.proveedorFechas.obtenerFecha(), this.id, participante.obtenerId());
+            registrador.registrar(fechaDeHoy, this.id, participante.obtenerId());
 
         } else {
             throw new RuntimeException("No se pudo inscribir al participante, fecha fuera de rango");
