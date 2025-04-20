@@ -1,4 +1,4 @@
-package ar.unrn.testing;
+package ar.unrn.concurso;
 
 import java.io.IOException;
 import java.time.LocalDate;

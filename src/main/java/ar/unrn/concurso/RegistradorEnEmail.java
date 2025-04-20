@@ -1,4 +1,4 @@
-package ar.unrn.testing;
+package ar.unrn.concurso;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
@@ -8,16 +8,32 @@ import java.time.LocalDate;
 import java.util.Properties;
 
 public class RegistradorEnEmail implements Registrador {
+
+    private String username;
+    private String password;
+    private String port;
+    private String proveedorDeCorreo;
+    private String smpt;
+    private String tls;
+    private String correoReceptor;
+
+    public RegistradorEnEmail(String username, String password, String port, String proveedorDeCorreo, String smpt, String tls, String correoReceptor) {
+        this.username = username;
+        this.password = password;
+        this.port = port;
+        this.proveedorDeCorreo = proveedorDeCorreo;
+        this.smpt = smpt;
+        this.tls = tls;
+        this.correoReceptor = correoReceptor;
+    }
+
     @Override
     public void registrar(LocalDate fecha, int idConcurso, int idParticipante) {
-        final String username = "fcabeza91@gmail.com";
-        final String password = "tmwz ibua emni afsr";
-
         Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); // Para TLS
+        prop.put("mail.smtp.host", this.proveedorDeCorreo);
+        prop.put("mail.smtp.port", this.port);
+        prop.put("mail.smtp.auth", this.smpt);
+        prop.put("mail.smtp.starttls.enable", this.tls);
 
         Session session = Session.getInstance(prop, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -29,7 +45,7 @@ public class RegistradorEnEmail implements Registrador {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse("fcabeza91@gmail.com"));
+                    Message.RecipientType.TO, InternetAddress.parse(this.correoReceptor));
             message.setSubject("Nueva inscripción a un concurso");
             String mensaje = "Información de la inscripción:\n" +
                     "ID Concurso: " + idConcurso +

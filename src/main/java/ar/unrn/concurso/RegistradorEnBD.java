@@ -1,4 +1,4 @@
-package ar.unrn.testing;
+package ar.unrn.concurso;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,13 +10,16 @@ public class RegistradorEnBD implements Registrador {
 
     @Override
     public void registrar(LocalDate fecha, int idConcurso, int idParticipante) {
-        try {
-            Connection conn = DriverManager.getConnection(url, user, pass);
+        String sql = "INSERT INTO registro (fecha, id_concurso, id_participante) VALUES (?, ?, ?)";
+
+        try (
+                Connection conn = DriverManager.getConnection(url, user, pass);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        ) {
 
             Date fechaSQL = Date.valueOf(fecha);
-            String sql = "INSERT INTO registro (fecha, id_concurso, id_participante) VALUES (?, ?, ?)";
 
-            PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setDate(1, fechaSQL);
             pstmt.setInt(2, idConcurso);

@@ -1,4 +1,4 @@
-package ar.unrn.testing;
+package ar.unrn.concurso;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ public class RegistradorEnArchivo implements Registrador {
     public RegistradorEnArchivo(String path) {
         this.path = path;
     }
-    
+
     @Override
     public void registrar(LocalDate fecha, int idConcurso, int idParticipante) throws IOException {
         String datos = fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ", " + idConcurso + ", " + idParticipante;
