@@ -4,9 +4,15 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class RegistradorEnBD implements Registrador {
-    String url = "jdbc:mysql://localhost:3306/inscripciones_concurso";
-    String user = "root";
-    String pass = "1818";
+    String url;
+    String user;
+    String pass;
+
+    public RegistradorEnBD(String url, String user, String pass) {
+        this.url = url;
+        this.user = user;
+        this.pass = pass;
+    }
 
     @Override
     public void registrar(LocalDate fecha, int idConcurso, int idParticipante) {
