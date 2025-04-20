@@ -4,20 +4,25 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class ExportadorEnBD implements Exportador {
-    String url = "jdbc:mysql://localhost:3306/restaurante";
-    String user = "root";
-    String pass = "1818";
+    String url;
+    String user;
+    String pass;
+
+    public ExportadorEnBD(String url, String user, String pass) {
+        this.url = url;
+        this.user = user;
+        this.pass = pass;
+    }
 
     @Override
     public void exportar(LocalDate fecha, float montoTotal) {
-        try {
-            Connection conn = DriverManager.getConnection(url, user, pass);
+        String sql = "INSERT INTO registro (fecha, monto) VALUES (?, ?)";
+        try (
+                Connection conn = DriverManager.getConnection(url, user, pass);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
 
             Date fechaSQL = Date.valueOf(fecha);
-            String sql = "INSERT INTO registro (fecha, monto) VALUES (?, ?)";
-
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
             pstmt.setDate(1, fechaSQL);
             pstmt.setFloat(2, montoTotal);
 
@@ -27,6 +32,5 @@ public class ExportadorEnBD implements Exportador {
             throw new RuntimeException(e);
         }
 
-        // Agregar el finally para cerrar la conexion.
     }
 }
